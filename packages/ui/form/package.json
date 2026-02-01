@@ -2,12 +2,8 @@
   "name": "@supportops/ui-form",
   "private": true,
   "version": "0.0.0",
+  "type": "module",
   "sideEffects": false,
-  "scripts": {
-    "build": "tsup src/index.ts --format esm,cjs --dts --out-dir dist --clean",
-    "typecheck": "tsc -p tsconfig.json --noEmit",
-    "lint": "eslint ."
-  },
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -16,13 +12,33 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js",
       "require": "./dist/index.cjs"
-    }
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "dev": "tsup --watch",
+    "build": "tsup",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint ."
   },
   "peerDependencies": {
     "react": "^19",
     "react-dom": "^19",
+    "react-hook-form": "^7",
     "@mui/material": "^7",
     "@emotion/react": "^11",
     "@emotion/styled": "^11"
+  },
+  "devDependencies": {
+    "@types/react": "^19",
+    "@mui/icons-material": "^7",
+    "react": "^19",
+    "react-dom": "^19",
+    "react-hook-form": "^7",
+    "tsup": "^8",
+    "typescript": "^5"
   }
 }

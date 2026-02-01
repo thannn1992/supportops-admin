@@ -1,0 +1,125 @@
+'use client';
+
+import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
+import ShieldOutlinedIcon from "@mui/icons-material/ShieldOutlined";
+import VpnKeyOutlinedIcon from "@mui/icons-material/VpnKeyOutlined";
+import { Button, Checkbox, FormControlLabel } from "@mui/material";
+import Link from "next/link";
+import { useParams } from "next/navigation";
+import { useForm } from "react-hook-form";
+
+import { TextInputField } from "@supportops/ui-form";
+
+import { AuthCard } from "../_components/AuthCard";
+import styles from "../auth.module.css";
+
+type ResetFormValues = {
+  email: string;
+  password: string;
+  confirmPassword: string;
+  acceptTerms: boolean;
+};
+
+export default function ResetPasswordPage() {
+  const { locale } = useParams<{ locale: string }>();
+  const { control, handleSubmit, register } = useForm<ResetFormValues>({
+    defaultValues: {
+      email: "",
+      password: "",
+      confirmPassword: "",
+      acceptTerms: false,
+    },
+  });
+
+  const onSubmit = (data: ResetFormValues) => {
+    console.log(data);
+  };
+
+  return (
+    <AuthCard
+      title="Reset password"
+      subtitle="Choose a new password to secure your account."
+      illustration={
+        <>
+          <span className={styles.illustrationBadge}>Security</span>
+          <div className={styles.illustrationTitle}>Stay protected</div>
+          <div className={styles.illustrationText}>
+            Update your credentials and keep your work safe.
+          </div>
+          <ShieldOutlinedIcon sx={{ fontSize: 120, color: "#2563eb", mt: 2 }} />
+        </>
+      }
+      footer={
+        <>
+          <span>Need to start over?</span>
+          <Link href={`/${locale}/forgot-password`}>Request a new link</Link>
+        </>
+      }
+    >
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <div className={styles.fields}>
+          <TextInputField
+            name="email"
+            control={control}
+            label="Your email"
+            placeholder="name@example.com"
+            startIcon={<EmailOutlinedIcon fontSize="small" />}
+            rules={{
+              required: "Email is required",
+              pattern: {
+                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                message: "Invalid email address",
+              },
+            }}
+          />
+          <TextInputField
+            name="password"
+            control={control}
+            label="New password"
+            placeholder="Create a strong password"
+            type="password"
+            startIcon={<VpnKeyOutlinedIcon fontSize="small" />}
+            rules={{
+              required: "Password is required",
+            }}
+          />
+          <TextInputField
+            name="confirmPassword"
+            control={control}
+            label="Confirm new password"
+            placeholder="Repeat your password"
+            type="password"
+            startIcon={<VpnKeyOutlinedIcon fontSize="small" />}
+            rules={{
+              required: "Confirm your password",
+            }}
+          />
+          <FormControlLabel
+            control={<Checkbox size="small" {...register("acceptTerms")} />}
+            label={
+              <span>
+                I accept the{" "}
+                <Link href={`/${locale}/terms`}>Terms and Conditions</Link>
+              </span>
+            }
+          />
+          <Button
+            type="submit"
+            variant="contained"
+            fullWidth
+            sx={{
+              borderRadius: 2,
+              textTransform: "none",
+              py: 1.2,
+              fontWeight: 600,
+              bgcolor: "#2563eb",
+              "&:hover": { bgcolor: "#1d4ed8" },
+            }}
+          >
+            Reset password
+          </Button>
+        </div>
+      </form>
+    </AuthCard>
+  );
+}
