@@ -1,0 +1,14 @@
+{
+  "files": [],
+  "references": [
+    { "path": "./packages/api-client" },
+    { "path": "./packages/core" },
+    { "path": "./packages/shared" },
+
+    { "path": "./packages/ui/theme" },
+    { "path": "./packages/ui/common-components" },
+    { "path": "./packages/ui/form" },
+
+    { "path": "./apps/web" }
+  ]
+}

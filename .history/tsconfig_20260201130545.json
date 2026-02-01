@@ -1,0 +1,10 @@
+{
+  "files": [],
+  "references": [
+
+    { "path": "./packages/ui/theme" },
+    { "path": "./packages/ui/common-components" },
+    { "path": "./packages/ui/form" },
+    { "path": "./apps/web" }
+  ]
+}
